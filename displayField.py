@@ -35,7 +35,7 @@ class DisplayField(QtWidgets.QWidget):
         self.widgetLayout.insertWidget(1, self.field, 2)
         # self.widgetLayout.addRow(self.label, self.field)
 
-        self.setStyleSheet(style)
+        # self.setStyleSheet(style)
 
 
 style = """

@@ -4,11 +4,13 @@ from PrinterModeWidget import PrinterModeWidget
 from MainBtnsWidget import MainBtnsWidget
 from PySide6 import QtCore
 from PySide6 import QtWidgets
+from PySide6.QtCore import QSize, Slot, Signal
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame,
                                QLabel, QHBoxLayout, QSizePolicy)
 
 
 class HomePageWidget(QtWidgets.QWidget):
+
     def __init__(self):
         super().__init__()
 
@@ -52,5 +54,14 @@ class HomePageWidget(QtWidgets.QWidget):
         self.homePageLayout.addWidget(self.mainBtnsFrame)
 
         # Signals and slots
+        # Changes the state of the buttons from auto printing to manual
         self.printerModeWidget.modeChanged.connect(
             self.mainBtnsWidget.setAutoPrintMode)
+
+        # dommy signal to print signals
+        self.printerModeWidget.modeChanged.connect(self.printSignals)
+        self.printerModeWidget.btnPressed.connect(self.printSignals)
+        self.mainBtnsWidget.btnPressed.connect(self.printSignals)
+
+    def printSignals(self, val):
+        print(val)
