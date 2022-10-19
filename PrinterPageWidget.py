@@ -1,11 +1,14 @@
 # This Python file uses the following encoding: utf-8
+from readline import get_current_history_length
+from traceback import print_stack
 from LevelWidget import LevelWidget
 from PySide6 import QtCore
 from PySide6 import QtWidgets
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton)
-from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QListView, QFormLayout,
+from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QListView, QFormLayout, QMessageBox,
                                QLabel, QHBoxLayout, QBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
 
+from Msgs import Msgs
 from PrinterWidget import PrinterWidget
 from SelectBtnWidget import SelectBtnWidget
 from TwoBtnWidget import TwoBtnWidget
@@ -13,23 +16,28 @@ from VideoWidget import VideoWidget
 
 
 class PrinterPageWidget(QtWidgets.QWidget):
+
+    stopBtnMsg = "Would you like stop the system?"
+    startBtnMsg = "Would you like start printing?"
+
+    stopMainBtnCmd = "stop-system"
+    startMainBtnCmd = "stop-system"
+
     def __init__(self):
         super().__init__()
+        # dummy structurs
 
         # Widgets
         self.printerWidget = PrinterWidget()
-        self.videoWidget = VideoWidget()
+        self.videoWidget = VideoWidget(self.printerWidget.getCurrPrinter())
         self.levelWidget = LevelWidget()
         self.mainBtns = TwoBtnWidget(u"Stop", u"Print")
 
-        # Widget properties
-        # self.printerWidget.powerWidget.setStyleSheet("border-style: outset;"
-        #                                              "border-width: 2px;"
-        #                                              "border-radius: 10px;"
-        #                                              "border-color: beige;"
-        #                                              "font: bold 14px;"
-        #                                              "min-width: 10em;"
-        #                                              "padding: 6px;")
+        # Message object
+        self.msgs = Msgs()
+        self.msgBox = QMessageBox()
+        self.msgBox.setStandardButtons(QMessageBox.No | QMessageBox.Yes)
+        self.msgBox.setDefaultButton(QMessageBox.Yes)
 
         # Layouts
         self.hLayouts = [QHBoxLayout] * 4
@@ -52,6 +60,62 @@ class PrinterPageWidget(QtWidgets.QWidget):
 
         # Signals and Slots
         self.printerWidget.btnPressed.connect(self.printSignals)
+        # self.videoWidget.btnPressed.connect(self.addPrinterCmd)
+        self.printerWidget.printerChanged.connect(
+            self.videoWidget.updatePrinter)
+        self.videoWidget.btnPressed.connect(self.printSignals)
+
+        # Main Buttons signals
+        self.mainBtns.stopBtn.clicked.connect(self.stopMainBtn)
+        self.mainBtns.startBtn.clicked.connect(self.constructPrintCmd)
 
     def printSignals(self, sig):
         print(sig)
+
+    def stopMainBtn(self):
+        self.msgBox.setText(self.stopBtnMsg)
+        ret = self.msgBox.exec()
+        if ret == QMessageBox.Yes:
+            self.printSignals(self.stopMainBtnCmd)
+
+    def startMainBtn(self):
+        self.msgBox.setText(self.startBtnMsg)
+        ret = self.msgBox.exec()
+        if ret == QMessageBox.Yes:
+            self.printSignals(self.constructPrintCmd)
+
+    def constructPrintCmd(self):
+        video = self.getCurrVideo()
+        level = self.getCurrLevel()
+        printer = self.getCurrPrinter()
+        motorSpeed = self.getCurrMotorSpeed()
+
+        if video == self.videoWidget.noVideo:
+            return self.msgs.selecVideoMsg()
+        if motorSpeed == "0":
+            return self.msgs.selectSpeedMsg()
+        cmd = "proj-on-" + printer + "_" + \
+            "level-motors-" + level + "_" + \
+            "motor-on-" + motorSpeed + "-" + printer + "_" + \
+            "proj-led-on-" + printer + "_" + \
+            "pi-play-" + video + "-" + printer
+        ret = self.msgs.startPrintMsg()
+        if ret == QMessageBox.Yes:
+            self.printSignals(cmd)
+
+    def getCurrVideo(self):
+        return self.videoWidget.getCurrVideo()
+
+    def getCurrLevel(self):
+        return self.levelWidget.getCurrLevel()
+
+    def getCurrPrinter(self):
+        return self.printerWidget.getCurrPrinter()
+
+    def getCurrMotorSpeed(self):
+        return self.printerWidget.getCurrMotorSpeed()
+
+    # def addPrinterCmd(self, cmd):
+    #     printer = self.printerWidget.getCurrPrinter()
+    #     vCmd = cmd + printer
+    #     self.printSignals(vCmd)

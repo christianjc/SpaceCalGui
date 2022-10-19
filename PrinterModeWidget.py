@@ -15,6 +15,9 @@ class PrinterModeWidget(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
 
+        # Messages
+        self.msg = Msgs()
+
         # Widgets
         self.btnStop = QPushButton("Stop Printing")
         self.btnMode = QPushButton("On")
@@ -57,7 +60,6 @@ class PrinterModeWidget(QtWidgets.QWidget):
 
     ##### Signal ######
     def btnStopPressedSig(self):
-        msg = Msgs()
-        ret = msg.confirmMsg(msg.stopSysMsg)
+        ret = self.msg.stopSysMsg()
         if ret == QMessageBox.Yes:
             self.btnPressed.emit(self.btnStop.text())

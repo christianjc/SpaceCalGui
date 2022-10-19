@@ -7,6 +7,7 @@ from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QListV
                                QLabel, QHBoxLayout, QBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
 
 
+
 class DisplayField(QtWidgets.QWidget):
 
     def __init__(self, l="label", f="field"):
