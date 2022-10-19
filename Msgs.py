@@ -15,7 +15,8 @@ class Msgs(QtWidgets.QWidget):
         self.parent = parent
         self.stopSys = "Would you like stop the system?"
         self.endPrint = "Would you like stop current print?"
-        self.startPrint = "Would you like begin printing?"
+        self.startPrinting = "Would you like to begin printing?"
+        self.startPrint = "Would you like to begin print?"
         self.selectVideo = "Please Select a video"
         self.selectSpeed = "Please select a speed greater than zero"
         self.msgBox = QMessageBox()
@@ -32,6 +33,10 @@ class Msgs(QtWidgets.QWidget):
 
     def startPrintMsg(self):
         self.msgBox.setText(self.startPrint)
+        return self.msgBox.exec()
+
+    def startPrintingMsg(self):
+        self.msgBox.setText(self.startPrinting)
         return self.msgBox.exec()
 
     def stopSysMsg(self):

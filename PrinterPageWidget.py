@@ -2,8 +2,8 @@
 from readline import get_current_history_length
 from traceback import print_stack
 from LevelWidget import LevelWidget
-from PySide6 import QtCore
 from PySide6 import QtWidgets
+from PySide6.QtCore import QObject, Signal, Slot
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton)
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QListView, QFormLayout, QMessageBox,
                                QLabel, QHBoxLayout, QBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
@@ -16,6 +16,7 @@ from VideoWidget import VideoWidget
 
 
 class PrinterPageWidget(QtWidgets.QWidget):
+    cmdSignal = Signal(str)
 
     stopBtnMsg = "Would you like stop the system?"
     startBtnMsg = "Would you like start printing?"
@@ -27,25 +28,25 @@ class PrinterPageWidget(QtWidgets.QWidget):
         super().__init__()
         # dummy structurs
 
-        # Widgets
+        ############################## Widgets #############################
         self.printerWidget = PrinterWidget()
         self.videoWidget = VideoWidget(self.printerWidget.getCurrPrinter())
         self.levelWidget = LevelWidget()
         self.mainBtns = TwoBtnWidget(u"Stop", u"Print")
 
-        # Message object
+        ######################### Message object ##########################
         self.msgs = Msgs()
         self.msgBox = QMessageBox()
         self.msgBox.setStandardButtons(QMessageBox.No | QMessageBox.Yes)
         self.msgBox.setDefaultButton(QMessageBox.Yes)
 
-        # Layouts
+        ############################# Layouts ##############################
         self.hLayouts = [QHBoxLayout] * 4
         self.verticalLayout = QVBoxLayout(self)
         for i in range(4):
             self.hLayouts[i] = QHBoxLayout()
 
-        # Add widgets to Layouts
+        ####################### Add widgets to Layouts #######################
         self.hLayouts[0].insertWidget(0, self.printerWidget.powerWidget)
         self.hLayouts[0].insertWidget(
             1, self.printerWidget.selectPrinterWidget)
@@ -58,31 +59,33 @@ class PrinterPageWidget(QtWidgets.QWidget):
         for i in range(4):
             self.verticalLayout.insertLayout(i, self.hLayouts[i])
 
-        # Signals and Slots
-        self.printerWidget.btnPressed.connect(self.printSignals)
-        # self.videoWidget.btnPressed.connect(self.addPrinterCmd)
+        ###################### Signals and Slots ############################
+        # Printer
+        self.printerWidget.btnPressed.connect(self.sendCmdSignal)
         self.printerWidget.printerChanged.connect(
             self.videoWidget.updatePrinter)
-        self.videoWidget.btnPressed.connect(self.printSignals)
 
-        # Main Buttons signals
+        # Video
+        self.videoWidget.btnPressed.connect(self.sendCmdSignal)
+
+        # Main Buttons
         self.mainBtns.stopBtn.clicked.connect(self.stopMainBtn)
         self.mainBtns.startBtn.clicked.connect(self.constructPrintCmd)
 
-    def printSignals(self, sig):
-        print(sig)
+    def sendCmdSignal(self, sig):
+        self.cmdSignal.emit(sig)
 
     def stopMainBtn(self):
         self.msgBox.setText(self.stopBtnMsg)
         ret = self.msgBox.exec()
         if ret == QMessageBox.Yes:
-            self.printSignals(self.stopMainBtnCmd)
+            self.sendCmdSignal(self.stopMainBtnCmd)
 
     def startMainBtn(self):
         self.msgBox.setText(self.startBtnMsg)
         ret = self.msgBox.exec()
         if ret == QMessageBox.Yes:
-            self.printSignals(self.constructPrintCmd)
+            self.sendCmdSignal(self.constructPrintCmd)
 
     def constructPrintCmd(self):
         video = self.getCurrVideo()
@@ -101,7 +104,7 @@ class PrinterPageWidget(QtWidgets.QWidget):
             "pi-play-" + video + "-" + printer
         ret = self.msgs.startPrintMsg()
         if ret == QMessageBox.Yes:
-            self.printSignals(cmd)
+            self.sendCmdSignal(cmd)
 
     def getCurrVideo(self):
         return self.videoWidget.getCurrVideo()
@@ -118,4 +121,4 @@ class PrinterPageWidget(QtWidgets.QWidget):
     # def addPrinterCmd(self, cmd):
     #     printer = self.printerWidget.getCurrPrinter()
     #     vCmd = cmd + printer
-    #     self.printSignals(vCmd)
+    #     self.sendCmdSignal(vCmd)

@@ -29,7 +29,7 @@ class VideoWidget(QtWidgets.QWidget):
                 lst.insert(indx, "hello/video/" + str(indx))
             self.videos[i] = lst
 
-        print(self.videos)
+        # print(self.videos)
 
         # Messages
         self.msgs = Msgs(self)

@@ -10,6 +10,7 @@ from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame,
 
 
 class HomePageWidget(QtWidgets.QWidget):
+    cmdSignal = Signal(str)
 
     def __init__(self):
         super().__init__()
@@ -58,10 +59,11 @@ class HomePageWidget(QtWidgets.QWidget):
         self.printerModeWidget.modeChanged.connect(
             self.mainBtnsWidget.setAutoPrintMode)
 
-        # dommy signal to print signals
-        self.printerModeWidget.modeChanged.connect(self.printSignals)
-        self.printerModeWidget.btnPressed.connect(self.printSignals)
-        self.mainBtnsWidget.btnPressed.connect(self.printSignals)
+        # Send cmd signals
+        # self.printerModeWidget.modeChanged.connect(self.sendCmdSignal)
+        self.printerModeWidget.btnPressed.connect(self.sendCmdSignal)
+        self.mainBtnsWidget.btnPressed.connect(self.sendCmdSignal)
 
-    def printSignals(self, val):
-        print(val)
+    def sendCmdSignal(self, sig):
+        self.cmdSignal.emit(sig)
+        # print(sig)

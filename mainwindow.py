@@ -21,7 +21,7 @@ class MainWindow(QMainWindow):
         super().__init__(parent)
         self.resize(800, 600)
 
-        # Widgets
+        ############################## Widgets #############################
         self.tabWidget = QTabWidget()
         self.homePage = HomePageWidget()
         self.printPage = PrinterPageWidget()
@@ -29,7 +29,7 @@ class MainWindow(QMainWindow):
         # Editing Widgits
         self.tabWidget.setDocumentMode(True)
 
-        # Layouts
+        ############################# Layouts ##############################
         self.mainLayout = QVBoxLayout(self.tabWidget)
 
         # Inserting widget tabs
@@ -39,12 +39,19 @@ class MainWindow(QMainWindow):
         # Setting the central widget for the main window to be the tabWidget
         self.setCentralWidget(self.tabWidget)
 
+        ###################### Signals and Slots ############################
+        self.homePage.cmdSignal.connect(self.sendCmd)
+        self.printPage.cmdSignal.connect(self.sendCmd)
+
         # Define the size policy for the tab widgit -- we want the minimum to be 700 by 500
-        sizePolicy = QSizePolicy(
-            QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
+        # sizePolicy = QSizePolicy(
+        #     QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
+        # sizePolicy.setHorizontalStretch(0)
+        # sizePolicy.setVerticalStretch(0)
 #        self.setSizePolicy(sizePolicy)
+
+    def sendCmd(self, cmd):
+        print(cmd)
 
     @Slot(int)
     def setSysState(self, state):
