@@ -1,7 +1,7 @@
 # This Python file uses the following encoding: utf-8
-from Componets.DisplayWidget import DisplayWidget
-from Componets.PrinterModeWidget import PrinterModeWidget
-from Componets.MainBtnsWidget import MainBtnsWidget
+from Components.DisplayWidget import DisplayWidget
+from Components.PrinterModeWidget import PrinterModeWidget
+from Components.MainBtnsWidget import MainBtnsWidget
 from PySide6 import QtCore
 from PySide6 import QtWidgets
 from PySide6.QtCore import QSize, Slot, Signal

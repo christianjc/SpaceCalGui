@@ -1,6 +1,6 @@
 # This Python file uses the following encoding: utf-8
 from distutils.sysconfig import get_config_var
-from Componets.Msgs import Msgs
+from Components.Msgs import Msgs
 from PySide6 import QtCore
 from PySide6 import QtWidgets
 
@@ -8,8 +8,8 @@ from PySide6.QtCore import QObject, Signal, Slot
 
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QListView, QFormLayout, QInputDialog,
                                QLabel, QHBoxLayout, QBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
-from Componets.SelectBtnWidget import SelectBtnWidget
-from Componets.TwoBtnWidget import TwoBtnWidget
+from Components.SelectBtnWidget import SelectBtnWidget
+from Components.TwoBtnWidget import TwoBtnWidget
 
 
 class VideoWidget(QtWidgets.QWidget):

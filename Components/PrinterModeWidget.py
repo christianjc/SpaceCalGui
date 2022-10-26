@@ -1,5 +1,5 @@
 # This Python file uses the following encoding: utf-8
-from Componets.Msgs import Msgs
+from Components.Msgs import Msgs
 from PySide6 import QtWidgets
 
 from PySide6.QtCore import (Signal)

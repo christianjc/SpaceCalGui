@@ -9,8 +9,8 @@ from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
                                QLayout, QMainWindow, QPushButton, QSizePolicy,
                                QStatusBar, QTabWidget, QVBoxLayout, QWidget)
 
-from Componets.HomePageWidget import HomePageWidget
-from Componets.PrinterPageWidget import PrinterPageWidget
+from Components.HomePageWidget import HomePageWidget
+from Components.PrinterPageWidget import PrinterPageWidget
 
 
 class MainWindow(QMainWindow):

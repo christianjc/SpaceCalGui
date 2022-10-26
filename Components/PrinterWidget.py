@@ -1,15 +1,15 @@
 # This Python file uses the following encoding: utf-8
 import imp
-from Componets.Msgs import Msgs
+from Components.Msgs import Msgs
 from PySide6 import QtCore
 from PySide6 import QtWidgets
 from PySide6.QtCore import QObject, Signal, Slot
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QListView, QFormLayout, QInputDialog,
                                QLabel, QHBoxLayout, QBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
 
-from Componets.SelectBtnWidget import SelectBtnWidget
-from Componets.DisplayField import DisplayField
-from Componets.TwoBtnWidget import TwoBtnWidget
+from Components.SelectBtnWidget import SelectBtnWidget
+from Components.DisplayField import DisplayField
+from Components.TwoBtnWidget import TwoBtnWidget
 
 
 class PrinterWidget(QtWidgets.QWidget):
