@@ -1,18 +1,18 @@
 # This Python file uses the following encoding: utf-8
 from readline import get_current_history_length
 from traceback import print_stack
-from LevelWidget import LevelWidget
+from Componets.LevelWidget import LevelWidget
 from PySide6 import QtWidgets
 from PySide6.QtCore import QObject, Signal, Slot
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton)
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QListView, QFormLayout, QMessageBox,
                                QLabel, QHBoxLayout, QBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
 
-from Msgs import Msgs
-from PrinterWidget import PrinterWidget
-from SelectBtnWidget import SelectBtnWidget
-from TwoBtnWidget import TwoBtnWidget
-from VideoWidget import VideoWidget
+from Componets.Msgs import Msgs
+from Componets.PrinterWidget import PrinterWidget
+from Componets.SelectBtnWidget import SelectBtnWidget
+from Componets.TwoBtnWidget import TwoBtnWidget
+from Componets.VideoWidget import VideoWidget
 
 
 class PrinterPageWidget(QtWidgets.QWidget):

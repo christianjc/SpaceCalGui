@@ -1,3 +1,3 @@
 {
-    "files": ["DisplayWidget.py","VideoWidget.py","mainwindow.py","PrinterModeWidget.py","Componets/DisplayField.py","MainBtnsWidget.py","TwoBtnWidget.py","SelectBtnWidget.py","LevelWidget.py","PrinterPageWidget.py","HomePageWidget.py","Msgs.py","PrinterWidget.py"]
+    "files": ["Componets/Msgs.py","Componets/VideoWidget.py","Componets/PrinterModeWidget.py","Componets/SelectBtnWidget.py","mainwindow.py","Componets/PrinterWidget.py","Componets/HomePageWidget.py","Componets/DisplayField.py","Componets/TwoBtnWidget.py","Componets/DisplayWidget.py","Componets/PrinterPageWidget.py","Componets/LevelWidget.py","Componets/MainBtnsWidget.py"]
 }
