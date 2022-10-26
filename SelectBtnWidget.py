@@ -7,7 +7,7 @@ from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QListV
                                QLabel, QHBoxLayout, QBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
 
 
-from DisplayField import DisplayField
+from Componets.DisplayField import DisplayField
 
 
 class SelectBtnWidget(QtWidgets.QWidget):

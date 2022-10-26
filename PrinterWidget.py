@@ -8,7 +8,7 @@ from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QListV
                                QLabel, QHBoxLayout, QBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
 
 from SelectBtnWidget import SelectBtnWidget
-from DisplayField import DisplayField
+from Componets.DisplayField import DisplayField
 from TwoBtnWidget import TwoBtnWidget
 
 

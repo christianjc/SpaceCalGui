@@ -7,7 +7,7 @@ from PySide6.QtCore import QStringListModel  # QStringListModel, QStringList
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QListView, QFormLayout,
                                QLabel, QHBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
 
-from DisplayField import DisplayField
+from Componets.DisplayField import DisplayField
 
 
 class DisplayWidget(QtWidgets.QWidget):
